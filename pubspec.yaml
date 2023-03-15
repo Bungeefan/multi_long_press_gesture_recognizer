@@ -1,5 +1,5 @@
 name: multi_long_press_gesture_recognizer
-description: Multi-Long-Press Gesture Recognizer
+description: Flutter package for detecting multi-long-press gestures. Supports slop tolerances and a configurable duration.
 version: 0.0.1
 repository: "https://github.com/Bungeefan/multi_long_press_gesture_recognizer"
 
