@@ -4,7 +4,7 @@ version: 0.0.1+1
 repository: "https://github.com/Bungeefan/multi_long_press_gesture_recognizer"
 
 environment:
-  sdk: '>=2.18.6 <3.0.0'
+  sdk: '>=2.18.0 <3.0.0'
   flutter: ">=1.17.0"
 
 dependencies:
