@@ -12,12 +12,12 @@ dependencies:
     sdk: flutter
 
   multi_long_press_gesture_recognizer:
-    path: ../
+    path: "../"
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
+  flutter_lints: ^3.0.0
 
 flutter:
   uses-material-design: true
