@@ -461,9 +461,16 @@ class MultiLongPressGestureRecognizer extends OneSequenceGestureRecognizer {
 
   @override
   void rejectGesture(int pointer) {
-    if (state == GestureRecognizerState.possible) {
+    if (_initialOffsets.containsKey(pointer) &&
+        state == GestureRecognizerState.possible) {
       _stopTimer();
-      _reset();
+      if (!_longPressAccepted && _pointerCounter >= pointerThreshold) {
+        // Check for possible state to not repeat the cancel after
+        // it was rejected even with pointers still on the screen.
+        // And also check for minimum pointers to not cancel
+        // before a first down call was made.
+        _checkMultiLongPressCancel();
+      }
       _state = GestureRecognizerState.defunct;
     }
     super.rejectGesture(pointer);
