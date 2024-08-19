@@ -466,6 +466,7 @@ class MultiLongPressGestureRecognizer extends OneSequenceGestureRecognizer {
   @override
   void dispose() {
     _stopTimer();
+    _initialOffsets.clear();
     super.dispose();
   }
 
