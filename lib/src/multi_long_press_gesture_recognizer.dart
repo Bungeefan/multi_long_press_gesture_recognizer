@@ -433,6 +433,12 @@ class MultiLongPressGestureRecognizer extends OneSequenceGestureRecognizer {
 
   @override
   void resolve(GestureDisposition disposition) {
+    // Send resolve before checking for a possible cancel event, as
+    // this can potentially trigger a cancel event themself
+    // (and updating the `state` to defunct), which would result in
+    // duplicated cancel events.
+    super.resolve(disposition);
+
     if (disposition == GestureDisposition.rejected) {
       if (_longPressAccepted) {
         // Straight up copied, could be incorrect.
@@ -450,7 +456,6 @@ class MultiLongPressGestureRecognizer extends OneSequenceGestureRecognizer {
         }
       }
     }
-    super.resolve(disposition);
   }
 
   @override
