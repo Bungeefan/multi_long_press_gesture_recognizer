@@ -373,6 +373,9 @@ class MultiLongPressGestureRecognizer extends OneSequenceGestureRecognizer {
           (isPreAcceptSlopPastTolerance || isPostAcceptSlopPastTolerance)) {
         _stopTimer();
         stopTrackingPointer(event.pointer);
+        // Gesture ended prematurely, "block" the recognizer
+        // for further move and up events from new pointers.
+        _state = GestureRecognizerState.defunct;
       }
 
       handlePointer(event);
@@ -398,6 +401,9 @@ class MultiLongPressGestureRecognizer extends OneSequenceGestureRecognizer {
       if (_longPressAccepted) {
         if (_pointerCounter == pointerThreshold) {
           _checkMultiLongPressUp(event);
+          // "Block" the recognizer for further move and up events
+          // from new pointers.
+          _state = GestureRecognizerState.defunct;
         }
       }
     }
