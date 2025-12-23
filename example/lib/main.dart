@@ -42,7 +42,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _addState(Object? details) {
-    var entry = (_lastStates.lastOrNull?.key == details?.runtimeType
+    var entry =
+        (_lastStates.lastOrNull?.key == details?.runtimeType
             ? _lastStates.removeLast()
             : null) ??
         MapEntry(details?.runtimeType, 0);
@@ -53,40 +54,40 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return RawGestureDetector(
       gestures: {
-        MultiLongPressGestureRecognizer: GestureRecognizerFactoryWithHandlers<
-            MultiLongPressGestureRecognizer>(
-          () => MultiLongPressGestureRecognizer(
-            duration: const Duration(milliseconds: 500),
-            preAcceptSlopTolerance: 18.0,
-            // postAcceptSlopTolerance: 100.0,
-            pointerThreshold: 2,
-          ),
-          (instance) {
-            instance
-              ..onMultiLongPressDown = (details) {
-                setState(() => _addState(details));
-              }
-              ..onMultiLongPress = (details) {
-                HapticFeedback.vibrate();
-                _addState(details);
-                _incrementCounter();
-              }
-              ..onMultiLongPressCancel = () {
-                setState(() => _addState(null));
-              }
-              ..onMultiLongPressMoveUpdate = (details) {
-                setState(() => _addState(details));
-              }
-              ..onMultiLongPressUp = (details) {
-                setState(() => _addState(details));
-              };
-          },
-        ),
+        MultiLongPressGestureRecognizer:
+            GestureRecognizerFactoryWithHandlers<
+              MultiLongPressGestureRecognizer
+            >(
+              () => MultiLongPressGestureRecognizer(
+                duration: const Duration(milliseconds: 500),
+                preAcceptSlopTolerance: 18.0,
+                // postAcceptSlopTolerance: 100.0,
+                pointerThreshold: 2,
+              ),
+              (instance) {
+                instance
+                  ..onMultiLongPressDown = (details) {
+                    setState(() => _addState(details));
+                  }
+                  ..onMultiLongPress = (details) {
+                    HapticFeedback.vibrate();
+                    _addState(details);
+                    _incrementCounter();
+                  }
+                  ..onMultiLongPressCancel = () {
+                    setState(() => _addState(null));
+                  }
+                  ..onMultiLongPressMoveUpdate = (details) {
+                    setState(() => _addState(details));
+                  }
+                  ..onMultiLongPressUp = (details) {
+                    setState(() => _addState(details));
+                  };
+              },
+            ),
       },
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text("Flutter Multi-Long-Press Demo"),
-        ),
+        appBar: AppBar(title: const Text("Flutter Multi-Long-Press Demo")),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -130,8 +131,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Padding(
                       padding: const EdgeInsets.all(5.0),
                       child: ClipRRect(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(20)),
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(20),
+                        ),
                         child: InteractiveViewer(
                           boundaryMargin: const EdgeInsets.all(500.0),
                           minScale: 0.5,
@@ -177,7 +179,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),
@@ -199,33 +201,36 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Padding(
           padding: const EdgeInsets.all(4.0),
           child: LayoutBuilder(
-              builder: (BuildContext context, BoxConstraints constraints) {
-            const double circleDiameter = 30.0;
-            const double circlePadding = 2.0;
-            const double circleSize = circleDiameter + (circlePadding * 2);
+            builder: (BuildContext context, BoxConstraints constraints) {
+              const double circleDiameter = 30.0;
+              const double circlePadding = 2.0;
+              const double circleSize = circleDiameter + (circlePadding * 2);
 
-            var newMaxSize = constraints.maxWidth ~/ circleSize;
-            if (newMaxSize != maxSize) {
-              _lastStates.clearWithLimit(newMaxSize);
-            }
-            maxSize = newMaxSize;
+              var newMaxSize = constraints.maxWidth ~/ circleSize;
+              if (newMaxSize != maxSize) {
+                _lastStates.clearWithLimit(newMaxSize);
+              }
+              maxSize = newMaxSize;
 
-            return ConstrainedBox(
-              constraints: const BoxConstraints.tightFor(height: circleSize),
-              child: Row(
-                children: [
-                  for (MapEntry<Type?, int> state in _lastStates.take(maxSize))
-                    _buildStateIcon(
-                      circlePadding,
-                      circleDiameter,
-                      3.0,
-                      state.key,
-                      value: state.value == 1 ? null : state.value.toString(),
-                    ),
-                ],
-              ),
-            );
-          }),
+              return ConstrainedBox(
+                constraints: const BoxConstraints.tightFor(height: circleSize),
+                child: Row(
+                  children: [
+                    for (MapEntry<Type?, int> state in _lastStates.take(
+                      maxSize,
+                    ))
+                      _buildStateIcon(
+                        circlePadding,
+                        circleDiameter,
+                        3.0,
+                        state.key,
+                        value: state.value == 1 ? null : state.value.toString(),
+                      ),
+                  ],
+                ),
+              );
+            },
+          ),
         ),
       ),
     );
@@ -273,10 +278,7 @@ class _MyHomePageState extends State<MyHomePage> {
         height: circleDiameter,
         decoration: BoxDecoration(
           color: _getColor(state),
-          border: Border.all(
-            color: _getBorderColor(state),
-            width: borderWidth,
-          ),
+          border: Border.all(color: _getBorderColor(state), width: borderWidth),
           shape: BoxShape.circle,
         ),
         child: value != null
